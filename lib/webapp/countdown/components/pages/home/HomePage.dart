@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:webdemo/pages/CustomAppBar.dart';
+
+import 'components/DateRemain.dart';
+import 'components/DateSelect.dart';
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      appBar: CustomAppBar(title: "Count App"),
+      body: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DateSelect(),
+              DateRemain(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
