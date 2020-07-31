@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webdemo/webapp/countdown/components/models/HomeProvider.dart';
@@ -12,49 +11,65 @@ class DateSelect extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeProvider homeProvider = Provider.of(context);
     DateTime end = homeProvider.start.add(homeProvider.duration);
+    var children = [
+      DatePick(
+        title: "Start Date",
+        dateTime: homeProvider.start ?? DateTime.now(),
+        onDatePick: (date) {
+          homeProvider.start = date;
+        },
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap: () async {
+            Duration duration = await showDialog(
+              context: context,
+              builder: (c) => DurationPicker(
+                duration: homeProvider.duration,
+              ),
+            );
+
+            if (duration != null) {
+              homeProvider.duration = duration;
+            }
+          },
+          child: Column(
+            children: [
+              Icon(Icons.flight_land),
+              Text(
+                "${homeProvider.duration?.inDays} day(s)",
+              )
+            ],
+          ),
+        ),
+      ),
+      DatePick(
+        title: "End Date",
+        dateTime: end,
+        enable: false,
+      ),
+    ];
 
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(28.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            DatePick(
-              title: "Start Date",
-              dateTime: homeProvider.start ?? DateTime.now(),
-              onDatePick: (date) {
-                homeProvider.start = date;
-              },
-            ),
-            InkWell(
-              onTap: () async {
-                Duration duration = await showDialog(
-                  context: context,
-                  builder: (c) => DurationPicker(
-                    duration: homeProvider.duration,
-                  ),
-                );
-
-                if (duration != null) {
-                  homeProvider.duration = duration;
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+            padding: const EdgeInsets.all(28.0),
+            child: LayoutBuilder(
+              builder: (context, cons) {
+                if (cons.maxWidth < 768) {
+                  return Column(
+                    children: children,
+                  );
                 }
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: children,
+                );
               },
-              child: Column(
-                children: [
-                  Icon(Icons.flight_land),
-                  Text(
-                    "${homeProvider.duration?.inDays} day(s)",
-                  )
-                ],
-              ),
-            ),
-            DatePick(
-              title: "End Date",
-              dateTime: end,
-              enable: false,
-            ),
-          ],
-        ),
+            )),
       ),
     );
   }
