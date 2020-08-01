@@ -15,7 +15,9 @@ class _DateRemainState extends State<DateRemain> {
   void initState() {
     super.initState();
     Timer.periodic(Duration(seconds: 1), (timer) {
-      now = DateTime.now();
+      setState(() {
+        now = DateTime.now();
+      });
     });
   }
 
