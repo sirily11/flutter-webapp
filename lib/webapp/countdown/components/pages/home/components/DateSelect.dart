@@ -55,21 +55,12 @@ class DateSelect extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         child: Padding(
-            padding: const EdgeInsets.all(28.0),
-            child: LayoutBuilder(
-              builder: (context, cons) {
-                if (cons.maxWidth < 768) {
-                  return Column(
-                    children: children,
-                  );
-                }
-
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: children,
-                );
-              },
-            )),
+          padding: const EdgeInsets.all(28.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: children,
+          ),
+        ),
       ),
     );
   }
@@ -103,8 +94,9 @@ class DatePick extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text("${dateTime.year}"),
           Text(
-            "${dateTime.year}/${dateTime.month}/${dateTime.day}",
+            "${dateTime.month}/${dateTime.day}",
             style: TextStyle(fontSize: 30),
           ),
           Text(
