@@ -9,7 +9,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
-      appBar: CustomAppBar(title: "Count App"),
+      appBar: CustomAppBar(
+        titleText: "Count App",
+        icon: Icon(Icons.date_range),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: SingleChildScrollView(

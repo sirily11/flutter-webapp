@@ -3,7 +3,21 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:webdemo/apps.dart';
 
-class MainAppHomePage extends StatelessWidget {
+class MainAppHomePage extends StatefulWidget {
+  @override
+  _MainAppHomePageState createState() => _MainAppHomePageState();
+}
+
+class _MainAppHomePageState extends State<MainAppHomePage> {
+  AppService appService;
+
+  goto(AppService app) async {
+    setState(() {
+      appService = app;
+    });
+    await Navigator.pushNamed(context, app.path);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +48,7 @@ class MainAppHomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: InkWell(
-                      onTap: () => Navigator.pushNamed(context, apps[i].path),
+                      onTap: () => goto(apps[i]),
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Container(
@@ -84,7 +98,7 @@ class MainAppHomePage extends StatelessWidget {
                     Divider(),
                     for (var app in apps)
                       ListTile(
-                        onTap: () => Navigator.pushNamed(context, app.path),
+                        onTap: () => goto(app),
                         leading: Icon(app.icon),
                         title: Text("${app.title}"),
                         subtitle: Text("${app.description}"),
@@ -100,6 +114,15 @@ class MainAppHomePage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: appService != null
+          ? FloatingActionButton(
+              heroTag: appService.title,
+              onPressed: () {
+                goto(appService);
+              },
+              child: Icon(appService.icon),
+            )
+          : null,
     );
   }
 }

@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 
 /// Define the appbar in each app
 class CustomAppBar extends AppBar {
-  CustomAppBar({String title}) : super(title: Text("$title"));
+  final Icon icon;
+  final String titleText;
+
+  CustomAppBar({this.titleText, @required this.icon})
+      : super(title: Text("$titleText"));
 
   @override
   double get elevation => 0;
 
   @override
-  Widget get leading => Container();
+  Widget get leading => Hero(
+        tag: Key(titleText),
+        child: icon,
+      );
 
   @override
   List<Widget> get actions => [
