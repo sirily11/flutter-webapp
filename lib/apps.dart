@@ -10,6 +10,21 @@ class AppService {
   String description;
 
   AppService({this.path, this.app, this.title, this.icon, this.description});
+
+  toJson() => {
+        "path": path,
+        "title": title,
+        "icon": icon,
+        "description": description,
+        "app": app,
+      };
+  factory AppService.fromJson(Map<String, dynamic> json) => AppService(
+        app: json['app'],
+        icon: json['icon'],
+        title: json['title'],
+        description: json['description'],
+        path: json['path'],
+      );
 }
 
 final List<AppService> apps = [

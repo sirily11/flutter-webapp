@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:webdemo/apps.dart';
+import 'package:webdemo/models/MainAppProvider.dart';
+import 'package:webdemo/pages/MiniAppButton.dart';
 
 class MainAppHomePage extends StatefulWidget {
   @override
@@ -9,12 +12,9 @@ class MainAppHomePage extends StatefulWidget {
 }
 
 class _MainAppHomePageState extends State<MainAppHomePage> {
-  AppService appService;
-
   goto(AppService app) async {
-    setState(() {
-      appService = app;
-    });
+    MainAppProvider mainAppProvider = Provider.of(context, listen: false);
+    mainAppProvider.appService = app;
     await Navigator.pushNamed(context, app.path);
   }
 
@@ -114,15 +114,7 @@ class _MainAppHomePageState extends State<MainAppHomePage> {
           ],
         ),
       ),
-      floatingActionButton: appService != null
-          ? FloatingActionButton(
-              heroTag: appService.title,
-              onPressed: () {
-                goto(appService);
-              },
-              child: Icon(appService.icon),
-            )
-          : null,
+      floatingActionButton: MiniAppButton(),
     );
   }
 }

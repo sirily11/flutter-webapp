@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webdemo/pages/CustomAppBar.dart';
+import 'package:webdemo/pages/MiniAppButton.dart';
 
 import 'components/DateRemain.dart';
 import 'components/DateSelect.dart';
@@ -26,6 +27,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: MiniAppButton(),
     );
   }
 }

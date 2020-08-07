@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:webdemo/apps.dart';
+import 'package:webdemo/models/MainAppProvider.dart';
 import 'package:webdemo/pages/HomePage.dart';
 
 void main() {
@@ -13,17 +15,24 @@ class MyApp extends StatelessWidget {
     Map<String, WidgetBuilder> routes =
         Map.fromIterable(apps, key: (e) => e.path, value: (e) => (c) => e.app);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => MainAppProvider(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        initialRoute: "/",
+        routes: {
+          "/": (c) => MainAppHomePage(),
+        }..addAll(routes),
       ),
-      initialRoute: "/",
-      routes: {
-        "/": (c) => MainAppHomePage(),
-      }..addAll(routes),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webdemo/pages/CustomAppBar.dart';
+import 'package:webdemo/pages/MiniAppButton.dart';
 import 'package:webdemo/webapp/weather/model/WeatherProvider.dart';
 import 'package:webdemo/webapp/weather/pages/components/ForecastCards.dart';
 import 'package:webdemo/webapp/weather/pages/components/InfoDisplay.dart';
@@ -49,6 +50,7 @@ class _WeatherPageState extends State<WeatherPage> {
                 ),
               ),
       ),
+      floatingActionButton: MiniAppButton(),
     );
   }
 }
